@@ -9,10 +9,7 @@ import jwt from "jsonwebtoken"
 const generateAccessTokenAndRefreshtoken = async (userId)=>{
     try {
         const user = await User.findById(userId)
-        // console.log("User found while generating token",user)
         const accessToken = user.generateAccessToken()
-        // console.log("Access token ",accessToken)
-        // console.log("accessToken",accessToken)   
         const refreshToken = user.generateRefreshToken()
 
 
@@ -31,7 +28,6 @@ const registerUser = asyncHandler( async (req,res)=>{
     // recieve response from frontend
     const {email,fullName,password}=req.body
 
-    // console.log(email,fullName,password)
 
 
     //validate the response fields are empty
@@ -58,7 +54,6 @@ const registerUser = asyncHandler( async (req,res)=>{
 
     const avatarLoacalPath = req.files?.avatar[0].path;
 
-    // console.log("Avatar local path:",avatarLoacalPath)
     
 
     if(!avatarLoacalPath){
@@ -140,20 +135,20 @@ const loginUser = asyncHandler( async (req,res) =>{
 
     //for deployment
 
-    // const options = {
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: 'none',
-    //     path: '/'
-    // };
-
-    //for developement
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
+        secure: true,
+        sameSite: 'none',
         path: '/'
     };
+
+    //for developement
+    // const options = {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: 'lax',
+    //     path: '/'
+    // };
 
 
     //returning response to the user or frontend
@@ -186,20 +181,20 @@ const logOutUser = asyncHandler( async(req,res)=>{
 
     //for deployment
 
-    // const options = {
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: 'none',
-    //     path: '/'
-    // };
-
-    //for developement
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
+        secure: true,
+        sameSite: 'none',
         path: '/'
     };
+
+    //for developement
+    // const options = {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: 'lax',
+    //     path: '/'
+    // };
 
     return res
     .status(200)

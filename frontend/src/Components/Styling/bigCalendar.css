@@ -1,0 +1,79 @@
+
+/* element.style {
+    
+} */
+.rbc-calendar{
+    border: 2px red;
+    height: 80vh;
+    height: 90vh;
+    width: 65vw;
+    background: white;
+}
+
+.rbc-day-bg{
+    background-color:white ;
+    border-left: black;
+}
+.rbc-header{
+    color: black;
+    background-color: white;
+}
+.rbc-toolbar{
+    font-size: large;
+    font-weight: bold;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: white;
+}
+.rbc-toolbar-label{
+    color:black;
+}
+.rbc-active{
+    background-color: #1db786;
+}
+.rbc-today{
+    /* background-color:#8E867B; */
+    border: black;
+    background-color: #dbf3f7;
+    border-bottom: black;
+    
+}
+
+
+/* .rbc-off-range-bg{
+    background-color: #c7c7c7;
+    color:black;
+    
+} */
+.rbc-event{
+    background-color: #ff7171;
+    border: 1px solid white;
+    color:black;
+    font-weight:200;
+    height: 50px;
+}
+.rbc-time-slot{
+    border-color: black;
+}
+.rbc-day-bg{
+    margin: 0;
+    padding: 0;
+
+}
+.rbc-button-link{
+    font-weight: 700;
+}
+
+
+
+button.rbc-button-link{
+    color: black;
+}
+
+.rbc-day-bg.rbc-off-range-bg {
+    border-left: none;
+    background-color:rgb(180, 177, 177);
+}
+
+.rbc-label{
+    color:black;
+}

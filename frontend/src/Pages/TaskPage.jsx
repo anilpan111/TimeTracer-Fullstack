@@ -3,6 +3,7 @@ import { FaRegPlayCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { IoIosSearch } from "react-icons/io";
 import Stopwatch from "../Components/Stopwatch";
+import eventAPIs from "../APIcalls/eventAPIs";
 function TaskPage() {
   const [taskObject,setTaskObject]=useState([]);
   const taskList = useSelector( (state)=> state.events.userEvents);
@@ -13,19 +14,32 @@ function TaskPage() {
   const [isClicked,setIsClicked]=useState(false);
   
 
-  useEffect(() => {
-    if (taskList) {
-      const objectTask = taskList.map(task => ({
-        ...task,
-        start: new Date(task.start),
-        end: new Date(task.end)
-      }));
-      setTaskObject(objectTask);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (taskList) {
+  //     const objectTask = taskList.map(task => ({
+  //       ...task,
+  //       start: new Date(task.start),
+  //       end: new Date(task.end)
+  //     }));
+  //     setTaskObject(objectTask);
+  //   }
+  // }, []);
+
+  useEffect(()=>{
+    (async ()=>{
+      try {
+        const allEvents = await eventAPIs.loadEvents();
+        if(allEvents){
+          console.log("TaskList:",allEvents.data.eventList[0].eventDetails)
+        }
+      } catch (error) {
+        console.log("ERR:",error)
+      }
+    })()
+  },[])
   return (
     <div className="bg-[#283346] w-full h-screen overflow-hidden flex">
-      <div className="w-[70%] h-screen bg-red-50 mt-24 ml-16 ">
+      {/* <div className="w-[70%] h-screen bg-red-50 mt-24 ml-16 ">
         <div className="w-full h-[7%] bg-[#3d4c65] shadow-xl border-b-2 flex items-center ">
           <ul className="flex w-full justify-between mx-4">
             <li className="font-myFont text-2xl ">Your Plans</li>
@@ -76,7 +90,7 @@ function TaskPage() {
             
           </ul>
         </div>
-      </div>
+      </div> */}
 
       <div className="w-[30%] h-screen border-l-2">
         <div className="w-full h-[35%]  justify-center flex mt-24 align-center border-b-2 ">

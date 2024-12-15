@@ -135,20 +135,20 @@ const loginUser = asyncHandler( async (req,res) =>{
 
     //for deployment
 
-    // const options = {
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: 'none',
-    //     path: '/'
-    // };
-
-    //for developement
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
+        secure: true,
+        sameSite: 'none',
         path: '/'
     };
+
+    //for developement
+    // const options = {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: 'lax',
+    //     path: '/'
+    // };
 
 
     //returning response to the user or frontend
@@ -181,20 +181,20 @@ const logOutUser = asyncHandler( async(req,res)=>{
 
     //for deployment
 
-    // const options = {
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: 'none',
-    //     path: '/'
-    // };
-
-    //for developement
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
+        secure: true,
+        sameSite: 'none',
         path: '/'
     };
+
+    //for developement
+    // const options = {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: 'lax',
+    //     path: '/'
+    // };
 
     return res
     .status(200)

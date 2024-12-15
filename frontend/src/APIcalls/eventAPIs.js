@@ -47,6 +47,18 @@ export class EventAPIs{
             throw error
         }
     }
+    async resetDuration({eventId,completedDuration}){
+        try {
+            const response = await axios.post(`${baseURL}/api/v1/event/resetDuration`,
+                {eventId,completedDuration},
+                {withCredentials: true}
+            )
+
+            return response.data
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 

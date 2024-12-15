@@ -1,10 +1,15 @@
 import { Button } from "@nextui-org/react";
 import React, { useState, useRef } from "react";
+import eventAPIs from "../APIcalls/eventAPIs";
+import { useSelector } from "react-redux";
 
 const Stopwatch = ({ onStop }) => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef(null);
+  const selectedEvent = useSelector((state) => state.events.userEvents);
+
+  // console.log("Selected Event:",)
 
   const toggleStartStop = () => {
     if (isRunning) {
@@ -24,9 +29,43 @@ const Stopwatch = ({ onStop }) => {
   const resetStopwatch = () => {
     clearInterval(intervalRef.current);
     setIsRunning(false);
-    console.log("Total time:", time);
+    
     setTime(0);
   };
+
+  const completedTime =async ()=>{
+    // console.log("Total time:", time);
+    const eventData = {
+      eventId: selectedEvent.id,
+      completedDuration: time
+    }
+    try {
+      const response =await eventAPIs.resetDuration(eventData)
+      if(response){
+        console.log("Response after reset duration:",response)
+        setTime(0);
+      }
+    } catch (error) {
+      console.log("Error while reset duration:",error)
+    }
+  }
+
+  const setCompletedEvent = async()=>{
+    const eventDuration = new Date(selectedEvent.end) - new Date(selectedEvent.start);
+    const eventData = {
+      eventId: selectedEvent.id,
+      completedDuration: eventDuration
+    }
+    try {
+      const response =await eventAPIs.resetDuration(eventData)
+      if(response){
+        console.log("Response after reset duration:",response)
+        setTime(0);
+      }
+    } catch (error) {
+      console.log("Error while reset duration:",error)
+    }
+  }
 
   const formatTime = (time) => {
     const seconds = Math.floor((time / 1000) % 60);
@@ -67,10 +106,14 @@ const Stopwatch = ({ onStop }) => {
         </div>
       </div>
       <div className="felx ">
-        <Button variant="ghost" className="w-60 bg-colorLevel5 mr-6">
+        <Button variant="ghost" className="w-60 bg-colorLevel5 mr-6"
+        onClick={completedTime}
+        >
           Reset event duration
         </Button>
-        <Button variant="ghost" className="w-60 bg-colorLevel5">
+        <Button variant="ghost" className="w-60 bg-colorLevel5"
+        onClick={setCompletedEvent}
+        >
           Mark as completed
         </Button>
       </div>

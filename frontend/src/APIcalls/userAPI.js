@@ -51,6 +51,18 @@ export class UserAPIs{
             throw error;
         }
     }
+    async logout(){
+        try {
+            const response = await axios.post(`${baseURL}/api/v1/user/logout`,
+                {},
+                {withCredentials: true}
+            )
+
+            return response.data;
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 const userAPI = new UserAPIs();

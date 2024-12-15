@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 const localizer = globalizeLocalizer(globalize);
 
 const eventTypes = [
-  { key: "ofiicial", label: "Office Work" },
+  { key: "official", label: "Office Work" },
   { key: "personal", label: "Personal" },
   { key: "fitness", label: "Health & Fitness" },
   { key: "education", label: "Education" },
@@ -66,6 +66,8 @@ function NewCalendar() {
         
         const allEvents = await eventAPIs.loadEvents();
         if (allEvents) {
+          // console.log("All Events:",allEvents.data.eventList[0].eventDetails)
+
           const formatedEvents = allEvents?.data?.eventObjects.map((event) => ({
             id: event.id,
             title: event.title,

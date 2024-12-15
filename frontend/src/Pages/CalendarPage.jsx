@@ -21,6 +21,8 @@ function CalendarPage() {
   const selectedEvent = useSelector((state) => state.events.userEvents);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+  // console.log("View event:",viewEvent)
+
   useEffect(() => {
     if (selectedEvent) {
       (async () => {
@@ -43,13 +45,24 @@ function CalendarPage() {
   const formattedEndTime = moment(viewEvent?.endTime).format(
     "ddd MMM DD YYYY hh:mm A"
   );
-  const durationInMilliseconds = new Date(viewEvent?.duration).getTime();
-  const totalSeconds = durationInMilliseconds / 1000;
 
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = Math.floor(totalSeconds % 60);
+  //to convert milliseconds into formated time
+  const convertTimeFormat = (milliseconds) => {
+    const totalSeconds = milliseconds / 1000;
 
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+
+    return {hours,minutes,seconds}
+  };
+
+  const formatedTaskDuartion = convertTimeFormat(viewEvent?.duration)
+  // console.log("Formated task duration:",formatedTaskDuartion)
+  const formatedCompletedDuration  = convertTimeFormat(viewEvent?.completedDuration)
+
+  const remainingDuration = viewEvent?.duration - viewEvent?.completedDuration;
+  const formatedRemainingDuration = convertTimeFormat(remainingDuration);
   return (
     <div className="w-full h-auto bg-colorLevel1 pt-24 md:pl-28 pl-3 md:pr-8 pr-3 flex  ">
       <div className="flex md:flex-row flex-col w-full my-4">
@@ -79,7 +92,15 @@ function CalendarPage() {
                 </p>
                 <p className="pt-3 text-2xl font-bold pb-2 ">
                   Totla Duration:{" "}
-                  <span className="text-gray-500 ">{`${hours}h: ${minutes}m: ${seconds}s`}</span>
+                  <span className="text-gray-500 ">{`${formatedTaskDuartion.hours}h: ${formatedTaskDuartion.minutes}m: ${formatedTaskDuartion.seconds}s`}</span>
+                </p>
+                <p className="pt-3 text-2xl font-bold pb-2 ">
+                  Completed Duration:{" "}
+                  <span className="text-gray-500 ">{`${formatedCompletedDuration.hours}h: ${formatedCompletedDuration.minutes}m: ${formatedCompletedDuration.seconds}s`}</span>
+                </p>
+                <p className="pt-3 text-2xl font-bold pb-2 ">
+                  Remaining Duration:{" "}
+                  <span className="text-gray-500 ">{`${formatedRemainingDuration.hours}h: ${formatedRemainingDuration.minutes}m: ${formatedRemainingDuration.seconds}s`}</span>
                 </p>
               </div>
             </div>
@@ -94,12 +115,12 @@ function CalendarPage() {
           className="bg-colorLevel2"
         >
           <ModalContent>
-          <ModalHeader className="flex flex-col gap-1 text-xl font-bold">
-                  Start timer or select as completed
-                </ModalHeader>
-                <ModalBody>
-                  <Stopwatch />
-                </ModalBody>
+            <ModalHeader className="flex flex-col gap-1 text-xl font-bold">
+              Start timer or select as completed
+            </ModalHeader>
+            <ModalBody>
+              <Stopwatch />
+            </ModalBody>
           </ModalContent>
         </Modal>
       </div>

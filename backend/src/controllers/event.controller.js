@@ -132,4 +132,44 @@ const addEvent = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdEvent, "Event added succesfully"));
 });
 
-export { loadEvents, addEvent,loadOneEvent };
+const resetDuration = asyncHandler(async (req,res)=>{
+  const {completedDuration,eventId}= req.body;
+  var newDuration;
+
+  if(completedDuration === undefined || !eventId){
+    throw new ApiErrors(400,"Duration and event id required")
+  }
+
+  if(!mongoose.Types.ObjectId.isValid(eventId)){
+    throw new ApiErrors(400,"Invalid event Id")
+  }
+
+  // const event = await Event.findById(eventId);
+  
+  // if(!event){
+  //   throw new ApiErrors(404,"Event not found")
+  // }
+
+  // newDuration = event.duration - completedDuration;
+
+  // if(completedDuration>=event.duration){
+  //   newDuration = 0;
+  // }
+
+  const updatedEvent = await Event.findByIdAndUpdate(
+    eventId,
+    {$set:{completedDuration}},
+    {new: true,runValidators: true},  
+  )
+
+  if(!updatedEvent){
+    throw new ApiErrors(400,"Event not updated")
+  }
+
+
+  return res.status(200).json(
+    new ApiResponse(200,updatedEvent,"Event duration reset")
+  )
+})
+
+export { loadEvents, addEvent,loadOneEvent,resetDuration };

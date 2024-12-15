@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import {  useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Login from "../NextComponents/Login.jsx";
 import Signup from "../NextComponents/Signup.jsx";
 import {  Button } from "@nextui-org/react";
+import userAPI from "../APIcalls/userAPI.js";
+import { logout } from "../store/slices/authSlice.js";
 function Navbar() {
   const [nav, setNav] = useState(false);
   const location = useLocation();
@@ -16,11 +18,11 @@ function Navbar() {
   const handleNav = () => {
     setNav(!nav);
   };
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
-  const loggedInUser = useSelector((state) => state.auth.userData);
-  // console.log("UserData:",loggedInUser)
+  // console.log("UserData:",authStatus)
   const navItems = [
     {
       name: "Home",
@@ -38,6 +40,18 @@ function Navbar() {
       status: true,
     },
   ];
+
+  const logoutUser = async ()=>{
+    try {
+      const response= await userAPI.logout();
+      if(response){
+        dispatch(logout())
+      }
+    } catch (error) {
+      console.log("Error while logout:",error)
+      
+    }
+  }
 
   return (
     <div className="w-full fixed top-0 z-10 bg-colorLevel2 border-b-2 border-black">
@@ -74,7 +88,9 @@ function Navbar() {
           </ul>
         ) : (
           <ul className="hidden md:flex gap-4 my-auto items-center font-myFont ">
-            <Button color="warning" variant="ghost">
+            <Button color="warning" variant="ghost"
+            onClick={logoutUser}
+            >
               Logout
             </Button>
           </ul>
@@ -103,7 +119,7 @@ function Navbar() {
                       navigate(item.navigate);
                       handleNav();
                     }}
-                    className="p-4 cursor-pointer hover:text-colorLevel5"
+                    className="p-4 cursor-pointer hover:text-colorLevel1"
                   >
                     {item.name}
                   </button>
@@ -111,21 +127,22 @@ function Navbar() {
               ) : null
             )}
             {!authStatus && (
-              <li className="p-4 cursor-pointer hover:text-colorLevel5">
+              <li className="p-4 cursor-pointer hover:text-colorLevel1">
                 <Login className=" border-none" />
               </li>
             )}
             {!authStatus && (
-              <li className="p-4 cursor-pointer hover:text-colorLevel5">
+              <li className="p-4 cursor-pointer hover:text-colorLevel1">
                 <Signup className=" border-none" />
               </li>
             )}
             {authStatus && (
-              <li className="p-4 cursor-pointer hover:text-colorLevel5">
+              <li className="p-4 cursor-pointer hover:text-colorLevel1">
                 <Button
                   color="warning"
                   variant="ghost"
-                  className="p-4 cursor-pointer hover:text-colorLevel5"
+                  className="p-4 cursor-pointer hover:text-colorLevel1"
+                  onClick={logoutUser}
                 >
                   Logout
                 </Button>

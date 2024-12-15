@@ -7,13 +7,13 @@ import BarChart from "./BarChart";
 function Hero() {
   const navigate = useNavigate();
   return (
-    <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 md:overflow-hidden ">
+    <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 md:overflow-hidden text-black">
       
 
       <div className="w-full h-auto bg-colorLevel3 mt-24 pr-8 ">
-        <div className="h-[40%] w-full flex mt-8 ">
+        <div className="h-[40%] w-full flex mt-8  ">
             <div className="w-[65%]  md:ml-16  flex mx-auto">
-                <PieChart className='w-52'/>
+                <PieChart className='w-52 '/>
             </div>
             <div className="w-[35%]  flex flex-col items-center justify-center text-black">
                 <p className="font-bold text-3xl">Effortlessly</p>

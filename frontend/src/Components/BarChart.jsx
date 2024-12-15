@@ -16,7 +16,10 @@ const BarChart = () => {
           // Handle chart click event
           console.log(chart, w, e);
         }
-      }
+      },
+      toolbar: {
+        show: false,
+      },
     },
     colors: colors,
     plotOptions: {

@@ -2,7 +2,7 @@ import React from 'react';
 import ApexCharts from 'react-apexcharts';
 
 const DashBoardPiechart = ({eventTypes}) => {
-  console.log("Event types pie:",eventTypes)
+  // console.log("Event types pie:",eventTypes)
   const options = {
     series: eventTypes,
     chart: {

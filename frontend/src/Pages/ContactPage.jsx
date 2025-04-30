@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ContactPage() {
     return (
-        <div className="relative flex items-top justify-center min-h-[700px] bg-[#283346] sm:items-center sm:pt-0 overflow-hidden">
+        <div className="relative flex items-top justify-center min-h-[700px] bg-colorLevel4 sm:items-center sm:pt-0 overflow-hidden">
             <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div className="mt-8 overflow-hidden">
                     <div className="grid grid-cols-1 md:grid-cols-2">
@@ -117,7 +117,7 @@ export default function ContactPage() {
 
                             <button
                                 type="submit"
-                                className="md:w-32 bg-[#00df9a] hover:bg-blue-dark text-white font-bold py-3 px-6 rounded-lg mt-3 hover:bg-[#49aa8b] transition ease-in-out duration-300"
+                                className="md:w-32 bg-colorLevel5 hover:bg-blue-dark text-black font-bold py-3 px-6 rounded-lg mt-3 hover:bg-colorLevel1 border-1 border-gray-500 transition ease-in-out duration-300"
                             >
                                 Submit
                             </button>

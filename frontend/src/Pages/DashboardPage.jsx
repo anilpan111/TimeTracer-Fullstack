@@ -57,13 +57,13 @@ function DashboardPage() {
 
   // console.log("Events from dashboard:", events);
   return (
-    <div className="w-full h-screen overflow-hidden bg-colorLevel4 flex pl-18 mt-24 text-black">
-      <div className="w-[65%] h-full  pt-8 pl-12">
+    <div className="w-full h-screen overflow-hidden bg-colorLevel4 md:flex grid grid-cols-1 pl-18 mt-24 text-black">
+      <div className="md:w-[65%]  h-full  pt-8 md:pl-12 p-4">
         <VerticalBarChart
           chartData={{ categories, completedMinutes, remainingMinutes }}
         />
       </div>
-      <div className="w-[35%] h-full  pt-8 pl-8 mx-auto">
+      <div className="md:w-[35%] w-full h-full  md:pt-8 md:pl-8 md:mx-auto">
         <DashBoardPiechart eventTypes={eventTypesArray}/>
       </div>
     </div>

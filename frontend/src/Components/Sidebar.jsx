@@ -23,37 +23,43 @@ function Sidebar() {
       name: <FaHome size={35} />,
       navigate: "/",
       status: true,
-      key: "homepage"
+      key: "homepage",
+      clickable:true
     },
     {
       name: <FaRegCalendarAlt size={35} />,
       navigate: "/calendar",
       status: true,
-      key: "calendarpage"
+      key: "calendarpage",
+      clickable:true
     },
     {
       name: <FaTasks size={35} />,
       navigate: "/tasks",
       status: true,
       key: "taskpage",
+      clickable:authStatus
     },
     {
       name: <MdDashboard size={35} />,
       navigate: "/dashboard",
       status: true,
       key: "dashboardpage",
+      clickable:authStatus
     },
     {
       name: <CgProfile size={35} />,
       navigate: "/profile",
       status: !authStatus,
-      key: "profileWithoutLogin"
+      key: "profileWithoutLogin",
+      clickable:authStatus
     },
     {
       name: <Avatar isBordered src={userData?.avatar} />,
       navigate: "/profile",
       status: authStatus,
-      key: "profileWithLogin"
+      key: "profileWithLogin",
+      clickable:authStatus
     },
   ];
   return (
@@ -64,10 +70,12 @@ function Sidebar() {
             item.status ? (
               <li key={item.key} className="">
                 <button
-                  onClick={() => navigate(item.navigate)}
-                  className={`md:my-8 md:mx-auto cursor-pointer w-full hover:text-colorLevel5  ${
+                  onClick={() => item.clickable ? navigate(item.navigate) : null}
+                  className={`md:my-8 md:mx-auto cursor-pointer w-full hover:text-colorLevel5 ${
                     isActive(item.navigate) ? "text-colorLevel5" : "text-black"
-                  }`}
+                  }`
+                  
+                }
                 >
                   {item.name}
                 </button>

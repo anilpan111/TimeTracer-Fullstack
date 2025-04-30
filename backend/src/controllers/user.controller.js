@@ -142,7 +142,7 @@ const loginUser = asyncHandler( async (req,res) =>{
         path: '/'
     };
 
-    //for developement
+    // for developement
     // const options = {
     //     httpOnly: true,
     //     secure: false,
